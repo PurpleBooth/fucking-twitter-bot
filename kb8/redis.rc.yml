@@ -1,0 +1,48 @@
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  labels:
+    facing: worker
+    service: fktwttr
+    type: redis
+  name: fktwttr-redis
+spec:
+  replicas: 1
+  selector:
+    name: fktwttr-redis
+  template:
+    metadata:
+      labels:
+        name: fktwttr-redis
+    spec:
+      containers:
+        -
+          image: redis
+          imagePullPolicy: Always
+          name: fktwttr-redis
+          cmd: ["redis"]
+          args: ["redis-server","--appendonly","yes"]
+          ports:
+            -
+              containerPort: 6379
+              name: redis
+              protocol: TCP
+          volumeMounts:
+            -
+              mountPath: /data
+              name: fktwttr-redis-pv
+          livenessProbe:
+                exec:
+                  command:
+                  - redis-cli
+                  - INFO
+                initialDelaySeconds: 15
+                timeoutSeconds: 1
+      restartPolicy: Always
+      volumes:
+        -
+          gcePersistentDisk:
+            fsType: ext4
+            pdName: fktwttr-redis-pv
+          name: fktwttr-redis-pv
