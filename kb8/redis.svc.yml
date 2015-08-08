@@ -15,4 +15,5 @@ spec:
       protocol: TCP
       targetPort: redis
   selector:
-    name: fktwttr-redis
+    service: fktwttr
+    type: redis

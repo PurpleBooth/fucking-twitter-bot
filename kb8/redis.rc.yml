@@ -6,15 +6,19 @@ metadata:
     facing: worker
     service: fktwttr
     type: redis
-  name: fktwttr-redis
+  name: fktwttr-redis-v0
 spec:
   replicas: 1
   selector:
-    name: fktwttr-redis
+    service: fktwttr
+    type: redis
+    version: v0
   template:
     metadata:
       labels:
-        name: fktwttr-redis
+        service: fktwttr
+        type: redis
+        version: v0
     spec:
       containers:
         -

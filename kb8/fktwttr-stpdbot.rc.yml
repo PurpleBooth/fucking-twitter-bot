@@ -6,15 +6,20 @@ metadata:
     facing: worker
     service: fktwttr
     type: stupid-twitter-bot
-  name: fktwttr-stpdbot
+  name: fktwttr-stpdbot-v0
 spec:
   replicas: 1
   selector:
-    name: fktwttr-stpdbot
+    service: fktwttr
+    type: stupid-twitter-bot
+    version: v0
   template:
     metadata:
       labels:
-        name: fktwttr-stpdbot
+        service: fktwttr
+        type: stupid-twitter-bot
+        version: v0
+    type: stupid-twitter-bot
     spec:
       containers:
         -
