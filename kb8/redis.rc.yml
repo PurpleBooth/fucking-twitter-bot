@@ -46,7 +46,6 @@ spec:
       restartPolicy: Always
       volumes:
         -
-          gcePersistentDisk:
-            fsType: ext4
-            pdName: fktwttr-redis-pv
+          persistentVolumeClaim:
+              claimName: fktwttr-redis-pvc
           name: fktwttr-redis-pv
